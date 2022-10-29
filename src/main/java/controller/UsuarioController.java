@@ -213,7 +213,7 @@ public class UsuarioController implements IUsuarioController {
         DBConnection con = new DBConnection();
 
         String sql1 = "Delete from alquiler where username = '" + username + "'";
-        String sql2 = "Delete from usuarios where username = '" + username + "'";
+        String sql2 = "Delete from usuario where username = '" + username + "'";
 
         try {
             Statement st = con.getConnection().createStatement();
@@ -229,9 +229,31 @@ public class UsuarioController implements IUsuarioController {
 
         return "false";
     }
+     @Override
+    public String restarDinero(String username, double nuevoSaldo) {
+
+        DBConnection con = new DBConnection();
+        String sql = "Update usuario set saldo = " + nuevoSaldo + " where username = '" + username + "'";
+
+        try {
+
+            Statement st = con.getConnection().createStatement();
+            st.executeUpdate(sql);
+
+            return "true";
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            con.desconectar();
+        }
+
+        return "false";
+    }
     
     
   }
+    
+  
   
 
 
